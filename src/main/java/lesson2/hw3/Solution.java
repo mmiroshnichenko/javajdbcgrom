@@ -1,8 +1,8 @@
-package lesson2;
+package lesson2.hw3;
 
 import java.sql.*;
-import java.text.BreakIterator;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Solution {
 
@@ -12,40 +12,8 @@ public class Solution {
     private static final String PASS = "W1DdNDwypsUyohttCttN";
 
     public static void main(String[] args) {
-        /*saveProduct();
-        deleteProducts();
-        deleteProductsByPrice();*/
-
-        /*System.out.println(getAllProducts());
-        System.out.println(getProductsByPrice());
-        System.out.println(getProductsByDescription());*/
-
         increasePrice();
         changeDescription();
-    }
-
-    public static void saveProduct() {
-        executeSql("INSERT INTO PRODUCT VALUES(999, 'toy', 'for children', 60)");
-    }
-
-    public static void deleteProducts() {
-        executeSql("DELETE FROM PRODUCT WHERE NAME != 'toy'");
-    }
-
-    public static void deleteProductsByPrice() {
-        executeSql("DELETE FROM PRODUCT WHERE PRICE < 100");
-    }
-
-    public static ArrayList<Product> getAllProducts() {
-        return getListProductsFromDB("SELECT * FROM PRODUCT");
-    }
-
-    public static ArrayList<Product> getProductsByPrice() {
-        return getListProductsFromDB("SELECT * FROM PRODUCT WHERE PRICE <= 100");
-    }
-
-    public static ArrayList<Product> getProductsByDescription() {
-        return getListProductsFromDB("SELECT * FROM PRODUCT WHERE LENGTH(DESCRIPTION) > 50");
     }
 
     public static void increasePrice() {
@@ -58,12 +26,8 @@ public class Solution {
         try(Connection connection = DriverManager.getConnection(DB_URL, USER, PASS);
             PreparedStatement statement = connection.prepareStatement("UPDATE PRODUCT SET DESCRIPTION = ? WHERE ID = ?")) {
             for (Product product : products) {
-                ArrayList<String> sentences = splitTextIntoSentences(product.getDescription());
-                sentences.remove(sentences.size() - 1);
-                String newText = String.join("", sentences);
-
                 statement.clearParameters();
-                statement.setString(1, newText);
+                statement.setString(1, cutLastSentence(product.getDescription()));
                 statement.setLong(2, product.getId());
                 statement.executeUpdate();
             }
@@ -73,16 +37,14 @@ public class Solution {
         }
     }
 
-    private static ArrayList<String> splitTextIntoSentences(String text) {
-        ArrayList<String> sentences = new ArrayList<>();
-        BreakIterator iterator = BreakIterator.getSentenceInstance();
-        iterator.setText(text);
-        int start = iterator.first();
-        for (int end = iterator.next(); end != BreakIterator.DONE; start = end, end = iterator.next()) {
-            sentences.add(text.substring(start,end));
-        }
+    private static String cutLastSentence(String text) {
+        ArrayList<Integer> indexes = new ArrayList<>();
+        indexes.add(text.lastIndexOf('.', text.length() - 2));
+        indexes.add(text.lastIndexOf('?', text.length() - 2));
+        indexes.add(text.lastIndexOf('!', text.length() - 2));
+        int indexLastSentence = Collections.max(indexes);
 
-        return sentences;
+        return indexLastSentence == -1 ? "" : text.substring(0, indexLastSentence + 1);
     }
 
     private static void executeSql(String sql) {

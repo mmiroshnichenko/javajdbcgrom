@@ -1,4 +1,4 @@
-package lesson2;
+package lesson2.hw2;
 
 public class Product {
     private long id;
