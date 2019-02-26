@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.Date;
 
 public class JDBCFirstStep {
     private static final String JDBC_DRIVER = "oracle.jdbc.driver.OracleDriver";
@@ -23,12 +24,18 @@ public class JDBCFirstStep {
                 return;
             }
 
-            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM Test")) {
+            try (ResultSet resultSet = statement.executeQuery("SELECT * FROM Orders WHERE PRICE > 5000")) {
                 while (resultSet.next()) {
-                    System.out.println("Object found");
+                    long id = resultSet.getLong(1);
+                    String productName = resultSet.getString(2);
+                    int price = resultSet.getInt(3);
+                    Date dateOrdered = resultSet.getDate(4);
+                    Date dateConfirmed = resultSet.getDate(5);
+
+                    Order order = new Order(id, productName, price, dateOrdered, dateConfirmed);
+                    System.out.println(order);
                 }
             }
-
         } catch (SQLException e) {
             System.err.println("Something went wrong");
             e.printStackTrace();
