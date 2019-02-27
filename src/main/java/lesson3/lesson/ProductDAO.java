@@ -1,4 +1,4 @@
-package lesson3;
+package lesson3.lesson;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ public class ProductDAO {
             preparedStatement.setString(3, product.getDescription());
             preparedStatement.setInt(4, product.getPrice());
             int result = preparedStatement.executeUpdate();
+
             System.out.println("Save was finished with result " + result);
         } catch (SQLException e) {
             System.err.println("Something went wrong");
