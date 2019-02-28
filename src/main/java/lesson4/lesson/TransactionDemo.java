@@ -1,7 +1,5 @@
 package lesson4.lesson;
 
-import lesson3.lesson.Product;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;

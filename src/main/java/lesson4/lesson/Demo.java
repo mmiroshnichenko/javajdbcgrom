@@ -1,7 +1,5 @@
 package lesson4.lesson;
 
-import lesson3.lesson.Product;
-
 import java.util.ArrayList;
 import java.util.List;
 
