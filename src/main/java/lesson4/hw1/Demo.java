@@ -206,8 +206,20 @@ public class Demo {
         showFilesInStorage(storage1);
         showFilesInStorage(storage2);
 
-        System.out.println("transfer all files between storages");
+        System.out.println("transfer all files between storages. Incorrect format");
         try {
+            Controller.transferAll(storage1, storage2);
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+            e.printStackTrace();
+        }
+        showFilesInStorage(storage1);
+        showFilesInStorage(storage2);
+
+        System.out.println("transfer all files between storages. Correct.");
+        try {
+            Controller.delete(storage1, fileDoc1);
+            Controller.delete(storage1, fileDoc2);
             Controller.transferAll(storage1, storage2);
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -218,7 +230,7 @@ public class Demo {
 
         System.out.println("delete file from storage");
         try {
-            Controller.delete(storage2, fileTxt1);
+            Controller.delete(storage2, filePsd1);
         } catch (Exception e) {
             System.err.println(e.getMessage());
             e.printStackTrace();
