@@ -1,6 +1,4 @@
-package lesson5;
-
-import org.hibernate.Session;
+package lesson5.lesson;
 
 public class Demo {
     public static void main(String[] args) {

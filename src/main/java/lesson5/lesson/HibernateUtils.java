@@ -1,4 +1,4 @@
-package lesson5;
+package lesson5.lesson;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

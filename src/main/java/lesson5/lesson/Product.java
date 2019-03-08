@@ -1,4 +1,4 @@
-package lesson5;
+package lesson5.lesson;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
