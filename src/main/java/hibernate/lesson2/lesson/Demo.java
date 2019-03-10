@@ -1,4 +1,4 @@
-package hibernate.lesson2;
+package hibernate.lesson2.lesson;
 
 import java.util.Arrays;
 import java.util.List;
@@ -15,7 +15,7 @@ public class Demo {
 
         product.setName("table new!!!");
         ProductDAO.update(product);
-        ProductDAO.delete(product);
+        //ProductDAO.delete(product);
 
         Product product1 = new Product();
 
@@ -43,7 +43,7 @@ public class Demo {
         product3.setName("table_new333!!!");
 
         ProductDAO.updateProducts(products);
-        ProductDAO.deleteProducts(products);
+        //ProductDAO.deleteProducts(products);
 
     }
 }
