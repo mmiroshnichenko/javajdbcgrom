@@ -13,215 +13,145 @@ public class ProductDAO {
     private static SessionFactory sessionFactory;
 
     public static Product findById(long id) {
-        Session session = null;
-        Transaction tr = null;
-        Product product = null;
-        try {
-            session = createSessionFactory().openSession();
-            tr = session.getTransaction();
+        try (Session session = createSessionFactory().openSession()) {
+            Transaction tr = session.getTransaction();
             tr.begin();
 
             Query query = session.createQuery("from Product where id = :id");
             query.setParameter("id", id);
-            product = (Product) query.getSingleResult();
+            Product product = (Product) query.getSingleResult();
 
             tr.commit();
+
+            return product;
         } catch (HibernateException e) {
             System.err.println("Save is failed");
             System.err.println(e.getMessage());
-
-            if (tr != null) {
-                tr.rollback();
-            }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
 
-        return product;
+        return null;
     }
 
     public static List<Product> findByName(String name) {
-        Session session = null;
-        Transaction tr = null;
-        List<Product> products = null;
-        try {
-            session = createSessionFactory().openSession();
-            tr = session.getTransaction();
+        try (Session session = createSessionFactory().openSession()) {
+            Transaction tr = session.getTransaction();
             tr.begin();
 
             Query query = session.createQuery("from Product where name = :name");
             query.setParameter("name", name);
-            products = query.list();
+            List<Product> products = query.list();
 
             tr.commit();
+
+            return products;
         } catch (HibernateException e) {
             System.err.println("Save is failed");
             System.err.println(e.getMessage());
-
-            if (tr != null) {
-                tr.rollback();
-            }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
 
-        return products;
+        return null;
     }
 
     public static List<Product> findByContainedName(String name) {
-        Session session = null;
-        Transaction tr = null;
-        List<Product> products = null;
-        try {
-            session = createSessionFactory().openSession();
-            tr = session.getTransaction();
+        try (Session session = createSessionFactory().openSession()) {
+            Transaction tr = session.getTransaction();
             tr.begin();
 
             Query query = session.createQuery("from Product where name like :name");
             query.setParameter("name", "%" + name + "%");
-            products = query.list();
+            List<Product> products = query.list();
 
             tr.commit();
+
+            return products;
         } catch (HibernateException e) {
             System.err.println("Save is failed");
             System.err.println(e.getMessage());
-
-            if (tr != null) {
-                tr.rollback();
-            }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
 
-        return products;
+        return null;
     }
 
     public static List<Product> findByPrice(int price, int delta) {
-        Session session = null;
-        Transaction tr = null;
-        List<Product> products = null;
-        try {
-            session = createSessionFactory().openSession();
-            tr = session.getTransaction();
+        try (Session session = createSessionFactory().openSession()) {
+            Transaction tr = session.getTransaction();
             tr.begin();
 
             Query query = session.createQuery("from Product where price between :minPrice and :maxPrice");
             query.setParameter("minPrice", price - delta);
             query.setParameter("maxPrice", price + delta);
-            products = query.list();
+            List<Product> products = query.list();
 
             tr.commit();
+
+            return products;
         } catch (HibernateException e) {
             System.err.println("Save is failed");
             System.err.println(e.getMessage());
-
-            if (tr != null) {
-                tr.rollback();
-            }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
 
-        return products;
+        return null;
     }
 
     public static List<Product> findByNameSortedAsc(String name) {
-        Session session = null;
-        Transaction tr = null;
-        List<Product> products = null;
-        try {
-            session = createSessionFactory().openSession();
-            tr = session.getTransaction();
+        try (Session session = createSessionFactory().openSession()) {
+            Transaction tr = session.getTransaction();
             tr.begin();
 
             Query query = session.createQuery("from Product where name like :name ORDER BY name ASC");
             query.setParameter("name", "%" + name + "%");
-            products = query.list();
+            List<Product> products = query.list();
 
             tr.commit();
+
+            return products;
         } catch (HibernateException e) {
             System.err.println("Save is failed");
             System.err.println(e.getMessage());
-
-            if (tr != null) {
-                tr.rollback();
-            }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
 
-        return products;
+        return null;
     }
 
     public static List<Product> findByNameSortedDesc(String name) {
-        Session session = null;
-        Transaction tr = null;
-        List<Product> products = null;
-        try {
-            session = createSessionFactory().openSession();
-            tr = session.getTransaction();
+        try (Session session = createSessionFactory().openSession()) {
+            Transaction tr = session.getTransaction();
             tr.begin();
 
             Query query = session.createQuery("from Product where name like :name ORDER BY name DESC");
             query.setParameter("name", "%" + name + "%");
-            products = query.list();
+            List<Product> products = query.list();
 
             tr.commit();
+
+            return products;
         } catch (HibernateException e) {
             System.err.println("Save is failed");
             System.err.println(e.getMessage());
-
-            if (tr != null) {
-                tr.rollback();
-            }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
 
-        return products;
+        return null;
     }
 
     public static List<Product> findByPriceSortedDesc(int price, int delta) {
-        Session session = null;
-        Transaction tr = null;
-        List<Product> products = null;
-        try {
-            session = createSessionFactory().openSession();
-            tr = session.getTransaction();
+        try (Session session = createSessionFactory().openSession()) {
+            Transaction tr = session.getTransaction();
             tr.begin();
 
             Query query = session.createQuery("from Product where price between :minPrice and :maxPrice order by price DESC");
             query.setParameter("minPrice", price - delta);
             query.setParameter("maxPrice", price + delta);
-            products = query.list();
+            List<Product> products = query.list();
 
             tr.commit();
+
+            return products;
         } catch (HibernateException e) {
             System.err.println("Save is failed");
             System.err.println(e.getMessage());
-
-            if (tr != null) {
-                tr.rollback();
-            }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
 
-        return products;
+        return null;
     }
 
     public static SessionFactory createSessionFactory() {
