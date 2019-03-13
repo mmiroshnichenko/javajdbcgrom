@@ -12,65 +12,45 @@ public class ProductDAO {
     private static SessionFactory sessionFactory;
 
     public static Product save(Product product) {
-        Session session = null;
-        Transaction tr = null;
-        try {
-            session = createSessionFactory().openSession();
-            tr = session.getTransaction();
+        try(Session session = createSessionFactory().openSession()) {
+            Transaction tr = session.getTransaction();
+
             tr.begin();
 
             session.save(product);
 
             tr.commit();
+
+            return product;
         } catch (HibernateException e) {
             System.err.println("Save is failed");
             System.err.println(e.getMessage());
-
-            if (tr != null) {
-                tr.rollback();
-            }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
 
-        return product;
+        return null;
     }
 
     public static Product update(Product product) {
-        Session session = null;
-        Transaction tr = null;
-        try {
-            session = createSessionFactory().openSession();
-            tr = session.getTransaction();
+        try (Session session = createSessionFactory().openSession()) {
+            Transaction tr = session.getTransaction();
             tr.begin();
 
             session.update(product);
 
             tr.commit();
+
+            return product;
         } catch (HibernateException e) {
             System.err.println("Update is failed");
             System.err.println(e.getMessage());
-
-            if (tr != null) {
-                tr.rollback();
-            }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
 
-        return product;
+        return null;
     }
 
     public static void delete(Product product) {
-        Session session = null;
-        Transaction tr = null;
-        try {
-            session = createSessionFactory().openSession();
-            tr = session.getTransaction();
+        try (Session session = createSessionFactory().openSession()) {
+            Transaction tr = session.getTransaction();
             tr.begin();
 
             session.delete(product);
@@ -79,22 +59,12 @@ public class ProductDAO {
         } catch (HibernateException e) {
             System.err.println("Delete is failed");
             System.err.println(e.getMessage());
-
-            if (tr != null) {
-                tr.rollback();
-            }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
     }
 
     public static void saveProducts(List<Product> products) {
-        Session session = null;
         Transaction tr = null;
-        try {
-            session = createSessionFactory().openSession();
+        try (Session session = createSessionFactory().openSession()) {
             tr = session.getTransaction();
             tr.begin();
 
@@ -110,20 +80,14 @@ public class ProductDAO {
             if (tr != null) {
                 tr.rollback();
             }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
 
         System.out.println("Save is done");
     }
 
     public static void updateProducts(List<Product> products) {
-        Session session = null;
         Transaction tr = null;
-        try {
-            session = createSessionFactory().openSession();
+        try (Session session = createSessionFactory().openSession()) {
             tr = session.getTransaction();
             tr.begin();
 
@@ -139,20 +103,14 @@ public class ProductDAO {
             if (tr != null) {
                 tr.rollback();
             }
-        } finally {
-            if (session != null) {
-                session.close();
-            }
         }
 
         System.out.println("Update is done");
     }
 
     public static void deleteProducts(List<Product> products) {
-        Session session = null;
         Transaction tr = null;
-        try {
-            session = createSessionFactory().openSession();
+        try (Session session = createSessionFactory().openSession()) {
             tr = session.getTransaction();
             tr.begin();
 
@@ -167,10 +125,6 @@ public class ProductDAO {
 
             if (tr != null) {
                 tr.rollback();
-            }
-        } finally {
-            if (session != null) {
-                session.close();
             }
         }
 
