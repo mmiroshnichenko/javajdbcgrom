@@ -2,7 +2,7 @@ package jdbc.lesson4.hw1.model;
 
 import java.util.Arrays;
 
-public class Storage extends BaseModel {
+public class Storage {
     private long id;
     private String[] formatsSupported;
     private String storageCountry;
@@ -21,12 +21,10 @@ public class Storage extends BaseModel {
         this.storageMaxSize = storageMaxSize;
     }
 
-    @Override
     public long getId() {
         return id;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }

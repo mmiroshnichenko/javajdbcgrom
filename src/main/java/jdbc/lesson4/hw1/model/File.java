@@ -1,6 +1,6 @@
 package jdbc.lesson4.hw1.model;
 
-public class File extends BaseModel {
+public class File {
     private long id;
     private String name;
     private String format;
@@ -22,12 +22,10 @@ public class File extends BaseModel {
         this.storage = storage;
     }
 
-    @Override
     public long getId() {
         return id;
     }
 
-    @Override
     public void setId(long id) {
         this.id = id;
     }
