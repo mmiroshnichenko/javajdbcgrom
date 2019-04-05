@@ -9,10 +9,11 @@
         <property name="hibernate.connection.username">main</property>
         <property name="hibernate.connection.password">W1DdNDwypsUyohttCttN</property>
         <property name="hibernate.enable_lazy_load_no_trans">true</property>
-        <!--<property name="show_sql">true</property>-->
-        <!--<mapping class="lesson1.lesson.Product"></mapping>-->
+        <property name="show_sql">true</property>
         <mapping class="hibernate.lesson2.hw2.Product"></mapping>
-        <mapping class="hibernate.lesson3.Entity.Hotel"></mapping>
-        <mapping class="hibernate.lesson3.Entity.Room"></mapping>
+        <mapping class="hibernate.lesson4.entity.Hotel"></mapping>
+        <mapping class="hibernate.lesson4.entity.Room"></mapping>
+        <mapping class="hibernate.lesson4.entity.User"></mapping>
+        <mapping class="hibernate.lesson4.entity.Order"></mapping>
     </session-factory>
 </hibernate-configuration>
