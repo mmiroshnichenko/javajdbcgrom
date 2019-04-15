@@ -23,8 +23,4 @@ public class RoomController {
 
         RoomService.deleteRoomById(roomId);
     }
-
-    public static List<Room> getAllRooms() throws Exception {
-        return RoomService.getAllRooms();
-    }
 }

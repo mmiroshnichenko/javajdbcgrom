@@ -9,10 +9,6 @@ public class DemoOrder extends BaseDemo {
         try {
             fillData();
 
-            for (Order elOrder : OrderController.getAllOrders()) {
-                System.out.println(elOrder);
-            }
-
             System.out.println("Add order for not authorized user");
             UserController.logout();
             try {
@@ -46,14 +42,8 @@ public class DemoOrder extends BaseDemo {
             System.out.println("Add valid order");
             Order newOrder = OrderController.bookRoom(room1.getId(), user2.getId(), dateFormat.parse("21-02-2019"), dateFormat.parse("20-03-2019"));
 
-            for (Order elOrder : OrderController.getAllOrders()) {
-                System.out.println(elOrder);
-            }
             System.out.println("Cancel order");
             OrderController.cancelReservation(newOrder.getId());
-            for (Order elOrder : OrderController.getAllOrders()) {
-                System.out.println(elOrder);
-            }
 
         } catch (Exception e) {
             System.err.println(e.getMessage());

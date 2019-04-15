@@ -9,10 +9,6 @@ public class DemoHotel extends BaseDemo {
         try {
             fillData();
 
-            for (Hotel hotel : HotelController.getAllHotels()) {
-                System.out.println(hotel);
-            }
-
             System.out.println("add already exist hotel");
             try {
                 Hotel hotel = new Hotel();
@@ -51,10 +47,6 @@ public class DemoHotel extends BaseDemo {
             UserController.logout();
             UserController.login("Admin", "123456");
             HotelController.deleteHotel(hotel4.getId());
-
-            for (Hotel hotel : HotelController.getAllHotels()) {
-                System.out.println(hotel);
-            }
 
             System.out.println("find by name");
             for (Hotel hotel : HotelController.findHotelByName("Hilton")) {

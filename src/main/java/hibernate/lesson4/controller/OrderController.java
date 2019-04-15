@@ -19,8 +19,4 @@ public class OrderController {
 
         OrderService.cancelReservation(orderId);
     }
-
-    public static List<Order> getAllOrders() throws Exception {
-        return OrderService.getAllOrders();
-    }
 }

@@ -11,9 +11,6 @@ public class DemoRoom extends BaseDemo {
             fillData();
 
             System.out.println("all rooms");
-            for (Room elRoom : RoomController.getAllRooms()) {
-                System.out.println(elRoom);
-            }
 
             System.out.println("add correct room");
             Room room = new Room();
@@ -52,10 +49,6 @@ public class DemoRoom extends BaseDemo {
             UserController.logout();
             UserController.login("Admin", "123456");
             RoomController.deleteRoom(room1.getId());
-
-            for (Room elRoom : RoomController.getAllRooms()) {
-                System.out.println(elRoom);
-            }
 
             System.out.println("Find rooms by city");
             Filter filter1 = new Filter();

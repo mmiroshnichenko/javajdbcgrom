@@ -34,10 +34,6 @@ public class RoomService {
         roomDAO.delete(roomId);
     }
 
-    public static List<Room> getAllRooms() {
-        return roomDAO.findAll();
-    }
-
     private static void validate(Room room) throws BadRequestException {
         if(room.getNumberOfGuests() <= 0) {
             throw new BadRequestException("Error: incorrect room param: number of guests");

@@ -34,12 +34,10 @@ public class OrderService {
         order.setDateFrom(dateFrom);
         order.setDateTo(dateTo);
         order.setMoneyPaid(moneyPaid);
-        order = orderDAO.save(order);
 
         room.setDateAvailableFrom(dateTo);
-        roomDAO.update(room);
 
-        return order;
+        return orderDAO.saveOrderAndUpdateRoom(order, room);
     }
 
     public static void cancelReservation(long orderId) throws Exception {
@@ -48,20 +46,16 @@ public class OrderService {
 
         Date dateFrom = order.getDateFrom();
         Room room = order.getRoom();
-        orderDAO.delete(order.getId());
         //я понимаю, что просто установить доступность комнаты в dateFrom от удаленного заказа - это не совсем верно
         //но тут возможно очень много вариантов, которые тоже будут отличаться от того как это сделано на реальных проектах
         //поэтому сделал этот простой вариант
         room.setDateAvailableFrom(dateFrom);
-        roomDAO.update(room);
+
+        orderDAO.deleteOrderUpdateRoom(order, room);
     }
 
     public static boolean existOrdersWithHotel(Hotel hotel) throws Exception {
         return orderDAO.findByHotel(hotel).size() > 0;
-    }
-
-    public static List<Order> getAllOrders() throws Exception {
-        return orderDAO.findAll();
     }
 
     private static void validateBookRoomParams(Room room, long roomId, User user, long userId, Date dateFrom) throws BadRequestException {

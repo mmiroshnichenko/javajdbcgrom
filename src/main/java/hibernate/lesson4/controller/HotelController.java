@@ -15,10 +15,6 @@ public class HotelController {
         return HotelService.findHotelByCity(city);
     }
 
-    public static List<Hotel> getAllHotels() throws Exception {
-        return HotelService.getAllHotels();
-    }
-
     public static Hotel addHotel(Hotel hotel) throws Exception{
         AuthorizationService.checkAdminPermissions();
 

@@ -27,10 +27,6 @@ public class HotelService {
         return hotelDAO.findByCity(city);
     }
 
-    public static List<Hotel> getAllHotels() throws Exception {
-        return hotelDAO.findAll();
-    }
-
     public static void deleteHotel(long hotelId) throws Exception {
         Hotel hotel = hotelDAO.findById(hotelId);
         if (hotel == null) {

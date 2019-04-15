@@ -5,9 +5,6 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
-
-import java.util.List;
 
 public class BaseDAO<T> {
     private static SessionFactory sessionFactory;
@@ -17,7 +14,7 @@ public class BaseDAO<T> {
         this.typeOfT = typeOfT;
     }
 
-    public T save(T object) {
+    public T save(T object) throws HibernateException {
         try(Session session = createSessionFactory().openSession()) {
             Transaction tr = session.getTransaction();
 
@@ -29,14 +26,11 @@ public class BaseDAO<T> {
 
             return object;
         } catch (HibernateException e) {
-            System.err.println("Save is failed");
-            System.err.println(e.getMessage());
+            throw new HibernateException("Save is failed");
         }
-
-        return null;
     }
 
-    public T update(T object) {
+    public T update(T object) throws HibernateException {
         try (Session session = createSessionFactory().openSession()) {
             Transaction tr = session.getTransaction();
             tr.begin();
@@ -47,14 +41,11 @@ public class BaseDAO<T> {
 
             return object;
         } catch (HibernateException e) {
-            System.err.println("Update is failed");
-            System.err.println(e.getMessage());
+            throw new HibernateException("Update is failed");
         }
-
-        return null;
     }
 
-    public void delete(long objectId) {
+    public void delete(long objectId) throws HibernateException {
         try (Session session = createSessionFactory().openSession()) {
             Transaction tr = session.getTransaction();
             tr.begin();
@@ -63,21 +54,17 @@ public class BaseDAO<T> {
 
             tr.commit();
         } catch (HibernateException e) {
-            System.err.println("Delete is failed");
-            System.err.println(e.getMessage());
+            throw new HibernateException("Delete is failed");
         }
     }
 
-    public T findById(long objectId) {
+    public T findById(long objectId) throws HibernateException {
         try (Session session = createSessionFactory().openSession()) {
 
             return session.get(this.typeOfT, objectId);
         } catch (HibernateException e) {
-            System.err.println("Search is failed");
-            System.err.println(e.getMessage());
+            throw new HibernateException("Search is failed");
         }
-
-        return null;
     }
 
     protected static SessionFactory createSessionFactory() {
@@ -86,18 +73,5 @@ public class BaseDAO<T> {
         }
 
         return sessionFactory;
-    }
-
-    public List<T> findAll() {
-        try (Session session = createSessionFactory().openSession()) {
-            Query query = session.createQuery("FROM " + this.typeOfT.getName());
-
-            return query.list();
-        } catch (HibernateException e) {
-            System.err.println("Search all " + this.typeOfT + " is failed");
-            System.err.println(e.getMessage());
-        }
-
-        return null;
     }
 }

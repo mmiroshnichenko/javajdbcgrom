@@ -18,7 +18,7 @@ public class UserService {
     public static User loginUser(String userName, String password) throws Exception {
         User user = userDAO.findByUserNameAndPassword(userName, password);
         if (user == null) {
-            throw new AuthException("Error: incorrect userName or password");
+            throw new BadRequestException("Error: incorrect userName or password");
         }
 
         Session.addUser(user);
